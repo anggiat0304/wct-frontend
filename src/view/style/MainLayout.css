@@ -1,0 +1,56 @@
+/* Layout.css */
+
+/* Styling untuk layout */
+.layout {
+    height: 100vh; /* Atur tinggi sesuai dengan kebutuhan */
+  }
+  
+  /* Styling untuk sidebar */
+  .sidebar {
+    background-color: #ddd; /* Warna latar belakang sidebar */
+    height: 100vh; /* Atur tinggi sesuai dengan kebutuhan */
+    text-align: left;
+    color: rgb(18, 136, 239);
+    /* Tambahkan properti lain sesuai dengan kebutuhan */
+  }
+  
+   .sidebar ul li{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    list-style: none;
+    text-decoration: none;
+  }
+  
+  /* Styling untuk konten utama */
+  .main-content {
+    /* Tambahkan properti lain sesuai dengan kebutuhan */
+  }
+  .header{
+    background-color: rgb(236, 240, 20);
+  }
+  .mid-header{
+    background-color: #ddd;
+    width: 100%;
+    margin-right: 100px;
+    padding: 30px;
+  }
+  .header-content{
+    background-color: #ddd;
+  }
+  
+  .mid-bottom{
+    background-color: #ddd;
+    width: 100%;
+    margin-right: 100px;
+    padding: 30px;
+  }
+  .sc-content{
+    text-align: left;
+  }
+  .left-text{
+    text-align: left;
+  }
+  .full-height{
+    height: 850px;
+    background-color: #ddd;
+  }
