@@ -5,9 +5,9 @@ import DescriptionApplication from "./DescriptionApplication";
 import ListApplicant from "./ListApplicant";
 import { fetchApplicantList } from "../../actions/applicantActions";
 class MainLayout extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             selectedItem: null
         }
     }
@@ -15,12 +15,13 @@ class MainLayout extends Component {
         this.props.fetchApplicantList();
     }
     handleItemClick = (item) => {
-        this.setState({selectedItem:item});
+        this.setState({ selectedItem: item });
     };
-
     render() {
-        const { data, loading, error} = this.props
-        const {selectedItem} = this.state
+        const { data, loading, error } = this.props
+        const { selectedItem  } = this.state
+
+
         return (
             <div className="layout">
                 {/* Navbar */}
@@ -34,8 +35,6 @@ class MainLayout extends Component {
                     <div className="navbar-nav ml-auto col-lg-3">
                         <div className='nav-item nav-link'>
                             <form className="d-flex">
-                                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                <button className="btn btn-outline-success" type="submit">Search</button>
                             </form>
                         </div>
                         <a className="nav-item nav-link" href="#">Help</a>
@@ -47,10 +46,12 @@ class MainLayout extends Component {
                         <div className="col-lg-12 ">
                             <div className="d-flex">
                                 <div className="p-2 col-lg-4 sc-content ">
-                                    <ListApplicant application={data} onItemClick={this.handleItemClick} className="left-text" />
+                    
+                                        <ListApplicant application={data} onItemClick={this.handleItemClick} className="left-text" />
+                               
                                 </div>
                                 <div className="p-2 col-lg-8 sc-content">
-                                    <DescriptionApplication selectedItem={selectedItem}/>
+                                    <DescriptionApplication selectedItem={selectedItem} />
                                 </div>
                             </div>
                         </div>

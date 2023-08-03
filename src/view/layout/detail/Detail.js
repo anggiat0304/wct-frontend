@@ -3,6 +3,14 @@ import '../../style/Detail.css';
 import { Table } from 'reactstrap';
 import ClientInformation from "./ClientInformation";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import DocumentChecklist from "./DocumentChecklist";
+import PreScreen from "./PreScreen";
+import Appraisal from "./Apprasial";
+import RM from "./RM";
+import DUW from "./DUW";
+import CA from "./CA";
+import DA from "./DA";
+import SULCompletion from "./SULCompletion";
 class Detail extends Component {
     constructor(props) {
         super(props);
@@ -127,36 +135,28 @@ class Detail extends Component {
                         <ClientInformation information={details} />
                         </TabPane>
                         <TabPane tabId="tab2">
-                            <h4>Content for Tab 2</h4>
-                            <p>This is the content of tab 2.</p>
+                        <DocumentChecklist information={details}/>
                         </TabPane>
                         <TabPane tabId="tab3">
-                            <h4>Content for Tab 3</h4>
-                            <p>This is the content of tab 3.</p>
+                        <PreScreen information={details}/>
                         </TabPane>
                         <TabPane tabId="tab4">
-                            <h4>Content for Tab 4</h4>
-                            <p>This is the content of tab 4.</p>
+                        <Appraisal information={details}/>
                         </TabPane>
                         <TabPane tabId="tab5">
-                            <h4>Content for Tab 5</h4>
-                            <p>This is the content of tab 5.</p>
+                        <RM information={details}/>
                         </TabPane>
                         <TabPane tabId="tab6">
-                            <h4>Content for Tab 6</h4>
-                            <p>This is the content of tab 6.</p>
+                            <DUW information={details} />
                         </TabPane>
                         <TabPane tabId="tab7">
-                            <h4>Content for Tab 7</h4>
-                            <p>This is the content of tab 7.</p>
+                        <CA information={details} />
                         </TabPane>
                         <TabPane tabId="tab8">
-                            <h4>Content for Tab 8</h4>
-                            <p>This is the content of tab 8.</p>
+                         <DA information={details} />
                         </TabPane>
                         <TabPane tabId="tab9">
-                            <h4>Content for Tab 9</h4>
-                            <p>This is the content of tab 9.</p>
+                         <SULCompletion information={details} />
                         </TabPane>
                     </TabContent>
                 </div>

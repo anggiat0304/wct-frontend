@@ -1,6 +1,10 @@
 import React, { Component,useState } from "react";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import Detail from "./detail/Detail";
+import Attachment from "./attachment/Attachment";
+import Comments from "./comment/Comments";
+import People from "./people/People";
+import Dates from "./dates/Dates";
 class DescriptionApplication extends Component {
     constructor(props){
         super(props);
@@ -59,6 +63,14 @@ class DescriptionApplication extends Component {
                                         People
                                     </NavLink>
                                 </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        className={activeTab === 'tab5' ? 'active' : ''}
+                                        onClick={() => this.toggleTab('tab5')}
+                                    >
+                                        Dates
+                                    </NavLink>
+                                </NavItem>
                             </Nav>
 
                             <TabContent activeTab={activeTab}>
@@ -66,16 +78,16 @@ class DescriptionApplication extends Component {
                                    <Detail details={selectedItem}/>
                                 </TabPane>
                                 <TabPane tabId="tab2">
-                                    <h4>Content for Tab 2</h4>
-                                    <p>This is the content of tab 2.</p>
+                                    <Attachment data={selectedItem}/>
                                 </TabPane>
                                 <TabPane tabId="tab3">
-                                    <h4>Content for Tab 3</h4>
-                                    <p>This is the content of tab 3.</p>
+                                    <Comments data={selectedItem}/>
                                 </TabPane>
                                 <TabPane tabId="tab4">
-                                    <h4>Content for Tab 4</h4>
-                                    <p>This is the content of tab 4.</p>
+                                    <People data={selectedItem}/>
+                                </TabPane>
+                                <TabPane tabId="tab5">
+                                    <Dates data={selectedItem}/>
                                 </TabPane>
                             </TabContent>
                         </div>
