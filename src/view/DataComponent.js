@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchApplicantList } from '../actions/applicantActions';
 import ListApplicant from './layout/ListApplicant';
 class DataComponent extends React.Component {
-  componentDidMount() {
+componentDidMount() {
     this.props.fetchApplicantList();
   }
 
