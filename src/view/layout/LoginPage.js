@@ -25,13 +25,19 @@ class LoginPage extends Component {
     axios
         .post(LOGIN, data) 
         .then((response) => {
-            const { access_token,user } = response.data;
-      localStorage.setItem('token', access_token);
-      localStorage.setItem('user', JSON.stringify(user));
-    window.location.href = '/main';
+          console.log(response)
+          if(response.data && response.data.message){
+          alert("Akun salah, tolong cek akun anda kembali")
+          return window.location.reload()
+          }
+          const { access_token,user } = response.data;
+          localStorage.setItem('token', access_token);
+          localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = '/main';
         })
         .catch((error) => {
-          console.log(error)
+          alert(error.message)
+          window.location.reload()
         });
   };
 
