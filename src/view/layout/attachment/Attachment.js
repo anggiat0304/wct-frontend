@@ -1,94 +1,53 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { downloadFile ,downloadBulkFile } from "../../../actions/fileActions";
+import { downloadFile, downloadBulkFile } from "../../../actions/fileActions";
 import { connect } from "react-redux";
+import '../../style/Attachment.css'
+import { Accordion, Card, Button } from 'react-bootstrap';
+import { attachmentColumn } from "../../column";
 class Attachment extends Component {
 
     download = (fileName) => {
         this.props.downloadFile(fileName)
     }
-    downloadBulkFile = (filename) =>{
-        const data = ['resume_satu.pdf','resume_dua.pdf'];
-        this.props.downloadBulkFile(data);
+    downloadBulkFile = (filename) => {
+        const filenames = ['resume_satu.pdf', 'resume_dua.pdf'];
+        this.props.downloadBulkFile(filenames);
     }
-    
+
+
+
     render() {
         const { data, res, loading, error } = this.props
         const attachments = data.attachments;
-        
-        Object.entries(attachments).forEach(([key, value]) => {
-            console.log(`Data ${key}:`);
-            value.forEach((item) => {
-              console.log(item.nama);
-            });
-          });
+        const pagar = "#";
+        const getColumnByKey = (key) => {
+            const attachment = attachmentColumn.find(item => item.key === key);
+            return attachment ? attachment.column : null;
+        }
         return (
             <div className="custom-scrollbar-attachment">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            <div class="d-flex flex-row">
-                                        <div class="p-2 flex-grow-1"> <p>Identitas Debitur dan Peminjam</p> </div>
-                                        <div class="p-2 flex-grow-1"><button type="button" class="btn btn-success" onClick={() => this.downloadBulkFile('hai')}>Download as Zip</button></div>
-                             </div>
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                {
-                                    attachments.identitasDebitur.map((item) => (
-                                    <div class="d-flex flex-row">
-                                        <div class="p-2 flex-grow-1"> <p>{item.nama}</p> </div>
-                                        <div class="p-2 flex-grow-1"><button type="button" class="btn btn-primary" onClick={() => this.download(item.nama)}>Download</button></div>
-                                      </div>
-                                    ))
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Identitas Usaha
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                {
-                                    attachments.identitasUsaha.map((item) => (
+                <div className="accordion accordion-flush" id="accordionFlushExample">
+                    {Object.keys(attachments).map((category) => (
+                        <div className="accordion-item">
+                            { }
+                            <h2 className="accordion-header d-flex justify-content-between align-items-center p-3" id={category}>
+                                <button class="accordion-button collapsed flex-grow-1" type="button" data-bs-toggle="collapse" data-bs-target={pagar.concat(category)} aria-expanded="false" aria-controls={category}>
+                                    {getColumnByKey(category)}
+                                </button>
+                                <button type="button" class="btn btn-success" onClick={() => this.downloadBulkFile(attachments[category])}>Download as Zip</button>
+                            </h2>
+                            <div id={category} class="accordion-collapse collapse" aria-labelledby={category} data-bs-parent="#accordionFlushExample">
+                                {attachments[category].map((attachment, index) => (
+                                    <div class="accordion-body">
                                         <div class="d-flex flex-row">
-                                        <div class="p-2 flex-grow-1"> <p>{item.nama}</p> </div>
-                                        <div class="p-2 flex-grow-1"><button type="button" class="btn btn-primary" onClick={() => this.download(item.nama)}>Download</button></div>
-                                      </div>
-                                    ))
-                                }
+                                            <div class="p-2 flex-grow-1"> <p>{attachment.nama}</p> </div>
+                                            <div class="p-2 flex-grow-1"><button type="button" class="btn btn-primary" onClick={() => this.download(attachment.nama)}>Download</button></div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Loan Report
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                {
-                                    attachments.loanReport.map((item) => (
-                
-                                        <div class="d-flex flex-row">
-                                        <div class="p-2 flex-grow-1"> <p>{item.nama}</p> </div>
-                                        <div class="p-2 flex-grow-1"><button type="button" class="btn btn-primary" onClick={() => this.download(item.nama)}>Download</button></div>
-                                      </div>
-                                      
-                                    ))
-                                }
-                            </div>
-                        </div>
-                    </div>
-
+                    ))}
                 </div>
             </div>
         )
@@ -96,14 +55,14 @@ class Attachment extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-      res: state.application.data,
-      loading: state.loading,
-      error: state.error,
+        res: state.application.data,
+        loading: state.loading,
+        error: state.error,
     };
-  };
+};
 const mapDispatchToProps = {
     downloadFile,
     downloadBulkFile
-  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps) (Attachment);
+export default connect(mapStateToProps, mapDispatchToProps)(Attachment);

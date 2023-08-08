@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-
-class Login extends Component {
+import { login } from '../../actions/userActions';
+import { connect } from 'react-redux';
+import { LOGIN } from '../../actions/url';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,24 +20,24 @@ class Login extends Component {
   };
 
   handleLogin = () => {
-    const { username, password } = this.state;
-    // Proses validasi login dilakukan di sini.
-    // Anda dapat menyesuaikan logika validasi sesuai kebutuhan.
+    const data = {username:this.state.username, password:this.state.password}
 
-    // Misalnya, kita akan anggap login berhasil jika username dan password diisi dengan benar.
-    if (username === 'admin' && password === 'admin') {
-      this.setState({ isLoggedIn: true });
-
-      // Redirect ke halaman lain (misalnya, halaman dashboard) setelah login berhasil.
-      // Anda dapat mengganti URL tujuan sesuai dengan halaman yang ingin dituju.
-      // Jika Anda menggunakan React Router, gunakan this.props.history.push('/nama-halaman').
-      window.location.href = '/main'; // Ganti dengan URL halaman tujuan setelah login berhasil.
-    } else {
-      alert('Login gagal. Cek kembali username dan password Anda.');
-    }
+    axios
+        .post(LOGIN, data) 
+        .then((response) => {
+            const { access_token,user } = response.data;
+      localStorage.setItem('token', access_token);
+      localStorage.setItem('user', JSON.stringify(user));
+    window.location.href = '/main';
+        })
+        .catch((error) => {
+          console.log(error)
+        });
   };
 
   render() {
+
+    const { data, loading, error } = this.props
     const { username, password } = this.state;
 
     return (
@@ -75,4 +79,6 @@ class Login extends Component {
   }
 }
 
-export default Login;
+
+
+export default LoginPage;

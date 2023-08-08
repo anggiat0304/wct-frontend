@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import '../style/MainLayout.css'
+import { useLocation } from 'react-router-dom';
 import DescriptionApplication from "./DescriptionApplication";
 import ListApplicant from "./ListApplicant";
 import { fetchApplicantList } from "../../actions/applicantActions";
+
 class MainLayout extends Component {
     constructor(props) {
         super(props);
@@ -17,11 +19,14 @@ class MainLayout extends Component {
     handleItemClick = (item) => {
         this.setState({ selectedItem: item });
     };
+    logout = ()=>{
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.reload()
+    }
     render() {
-        const { data, loading, error } = this.props
-        const { selectedItem  } = this.state
-
-
+        const { data, loading, error, user } = this.props
+        const { selectedItem } = this.state
         return (
             <div className="layout">
                 {/* Navbar */}
@@ -37,8 +42,16 @@ class MainLayout extends Component {
                             <form className="d-flex">
                             </form>
                         </div>
-                        <a className="nav-item nav-link" href="#">Help</a>
-                        <a className="nav-item nav-link" href="#">Profile</a>
+                        <div className="nav-item ">
+                            <div class="dropdown">
+                                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                                    {user.nama}
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><p class="dropdown-item" onClick={this.logout}>Logout</p></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </nav>
                 <div>
@@ -46,9 +59,9 @@ class MainLayout extends Component {
                         <div className="col-lg-12 ">
                             <div className="d-flex">
                                 <div className="p-2 col-lg-4 sc-content ">
-                    
-                                        <ListApplicant application={data} onItemClick={this.handleItemClick} className="left-text" />
-                               
+
+                                    <ListApplicant application={data} onItemClick={this.handleItemClick} className="left-text" />
+
                                 </div>
                                 <div className="p-2 col-lg-8 sc-content">
                                     <DescriptionApplication selectedItem={selectedItem} />

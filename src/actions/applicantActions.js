@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { FETCH_DATA_REQUEST,FETCH_DATA_SUCCESS,FETCH_DATA_FAILURE } from './types';
-import { BACKEND_URL, APPLICANT_API } from './url';
+import { APPLICANT_API} from './url';
 
 const fetchDataRequest = () => {
   return {
@@ -26,7 +26,7 @@ export const fetchApplicantList = () => {
   return (dispatch) => {
     dispatch(fetchDataRequest);
     axios
-      .get(BACKEND_URL+APPLICANT_API) 
+      .get(APPLICANT_API) 
       .then((response) => {
         dispatch(fetchDataSuccess(response.data));
       })
